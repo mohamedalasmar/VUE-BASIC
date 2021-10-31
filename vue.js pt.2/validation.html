@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation By Vuejs</title>
+</head>
+
+<body>
+    <div id="Al-Asmar-App">
+        <label>Write Your Username</label>
+        <input type="text" v-model="username">
+        <p>{{ validateUserName }}</p>
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#Al-Asmar-App',
+            data: {
+                username: '',
+            },
+            computed: {
+                validateUserName: function () {
+                    if (!this.username) {
+                        return "Username Cant be Empty";
+                    } else if (this.username.length < 8) {
+                        return "Username is too short";
+                    } else if (! isNaN(this.username)) {
+                        return "Username cant be only number";
+                    } else {
+                        return "welcome" + " " + this.username + " " + "Everything is good"
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

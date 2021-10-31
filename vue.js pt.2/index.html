@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Vue</title>
+</head>
+<!-- 
+    computed properties: بحط فيها الخواص الي بدي اعمللها حساب من الممكن اني احط داخل ال template بالصورة هاي مثلاً {{age*2}} و لكن ال template غير معمول لينفذ فيه عمليات حسابية و منطقية لهيك بنستخدم ال computed 
+
+    في فرق بين ال methods و ال computed الي هو انه الميثود لما بدها تعمل run لشي لازم تعمل run لكل اشي بالتمبليت و هاد الشي بيأثر على أداء البرنامج و عمله
+
+    ال methods بيقبل يوخد في ال parameters 
+ -->
+<body>
+    <div id="mohamed">
+        <h1>Welcome Vue.Js</h1>
+        <p>{{calcAge}}</p>
+        <p>{{reverseMessage}}</p>
+        <p>{{fullName}}</p>
+        <p>{{fullName}}</p>
+        <p>{{fullName}}</p>
+    </div>
+
+    <script src='js/vue.js'></script>
+
+    <script>
+
+        var vm = new Vue({
+            el:'#mohamed',
+            data:
+            {
+                age:36,
+                message : 'Mohamed Al-Asmar',
+                firstName : 'Mohamed',
+                lastName : 'Alasmar'
+            },
+            methods :{
+                // fullName : function(){
+                //     console.log('Run');
+                //     return this.firstName + ' ' + this.lastName ;
+                // }
+            },
+            computed:{
+            
+                calcAge : function(){
+                    console.log('run');
+                    return this.age*2;
+                },
+                reverseMessage : function(){
+                    return this.message.split('').reverse().join('');
+                },
+                fullName : function(){
+                    console.log('Run');
+                    return this.firstName + ' ' + this.lastName ;
+                    // return `${this.firstName} ${this.lastName}`; //ES6
+            }
+        }
+        })
+    </script>
+
+</body>
+</html>

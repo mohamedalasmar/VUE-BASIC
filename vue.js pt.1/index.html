@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Vue.js</title>
+</head>
+<!--VueJS depends on mvmv pattern 
+MVVM : Model View View Model 
+{{}} : double curely braces => You can write script function between here
+<div> </div> => view
+var vm => variable , you can name it as you like
+new Vue({
+    el : element, => set here you div id => it's neccesary to connect with div
+    data : properties you want view it . 
+})
+
+data type in vue js => [integer , string , array , boolean]
+Directives : تعليمات بتوفرها ال vue بتطبقها على عناصر ال html عشان تغطيلك احتياجاتك
+ممكن تعمل custom directive بنفسك .
+
+v-text : بيستخدم عشان اعرض قيمة نص => update content
+v-html : بيستخدم عشان اعرض كود مكتوب HTML  => update inner HTML
+v-for : لعمل loop 
+v-if : لعمل conditions
+خلي ال v-if و ا ل v-else ورا بعض دايماً 
+v-once : يعني ال element بتعدي عليه مرة واحدة بس و ما تعدي عليه مرة تانيةو مع تحديث الصفحة ما بتغير 
+v-show : بعمل على تغيير خاصية ال display للعنصر .
+
+v-on : بتتعامل مع ال events  
+يعبر عن ال v-on بعلامة ال @
+v-bind : عشان نعمل bind لل Attribute الموجود في ال element 
+ممكن بدل ما اكتب v-bind اكتفي ب : 
+
+في نوعين لل binding
+- one way binding  بستخدم فيه v-bind
+- two way binding بستخدم فيه v-model يستخدم ل input , select , textarea.
+
+components : عناصر جاهزة في ال framework بتقدر تستخدمها وقت الحاجة مثل الناف بار و الازرار و الفورم
+syntax of components : 
+Vue.component('component-name',{
+    data : function(){
+
+    }
+
+    template : ''
+})
+component-name : بنسمي الكومبونينت على طريقة ال kebeb-case 
+data تكون على شكل function 
+template : يعني محتوى الكومبونينت شو راح يكون فيه 
+- بعدين بستنى ال component في المكان الي بدي استدعيه فيه .. ولازم يكون عن طريق ال kebeb case. 
+passing data in vue component 
+
+- لا يمكن تمرير البيانات الموجودة في  vue instance داخل ال vue component 
+- يتم تمرير البيانات في داخل ال vue component عن طريق ال props 
+- props عبارة عن custom attribute موجود جوا ال component و بيقبل بيانات معينة و البيانات هاي عبارة عن البيانات الي بدي انقلها من ال instance داخل ال component 
+- في عندي نوعين من ال components => global components , local components.
+
+=>global component : بقدر استدعيه في اي مكان => بيتم تعريفه عن طريق Vue.component
+=>local component : بقدر استدعيه داخل ال instance بس و بيتم تعريفه عن طريق var component-name => مهم مراجعته من الزيرو الدرس 15
+
+عشان افعل ال local components لازم جوا ال vue instance استدعيهم
+
+-->
+
+<body>
+
+    <div id="alasmar">
+        <!-- <h1>Welcome to Vue Js Course</h1>
+        <h2>Welcome {{name.toUpperCase()}},{{name.length > 4 ?name :'Name is too short'}} We are happy to see you</h2>
+        <h3>Your age is {{age + ' Years'}}</h3>
+        <h2>Your skills is {{skills[0] + ' Pro'}}</h2>
+        <h3>Are You subscribed : {{ isSubscribed ? 'subscribed' : 'Not subscribed'}}</h3>
+        <p>Your first name is {{ familyInfo[0].firstName }}</p>
+        <p>Your second name is {{ familyInfo[0].secondName }}</p>
+        <p>Your Age is {{ familyInfo[0].Age }}</p>
+        <p> {{ yourAgeInDAys() }} </p> -->
+        <!-- <p v-text="name"></p>
+        <p v-html="title"></p> -->
+        <h1>Welcome To Vue.js</h1>
+
+        <app-count :source="source" :url = "url"></app-count>
+        <app-article></app-article>
+        <app-article-item></app-article-item>
+        <!-- v-for -->
+        <ul>
+            <li v-for="skill in skills">
+                {{skill}}
+            </li>
+        </ul>
+        <!-- كيف التعامل مع الآري -->
+        <ul>
+            <li v-for="(skill,index) in skills">
+                {{index}} => {{skill}}
+            </li>
+        </ul>
+
+        <!--كيف التعامل مع الاوبجكت-->
+        <ul>
+            <li v-for="(info,index) in familyInfo">
+                {{index}} => {{info.firstName}} {{info.secondName}} | {{info.Age}}
+            </li>
+        </ul>
+        <!-- v-if -->
+        <p v-if="age > 40"> You Are Too Old </p>
+        <p v-else-if=" age > 15 && age < 50 "> You Are youth</p>
+        <p v-else> You are still young </p>
+
+        <!-- v-bind -->
+        <!-- يجوز كتابتها بطريقتين 
+        1- :
+    2- v-bind
+ -->
+        <!-- <a :href="imageUrl">
+            <img :src="imageSource" :alt="imageAltText">
+        </a> -->
+
+        <!-- v-on -->
+        <p>Counter is {{counter}}</p>
+        <!-- <button v-on:click = "counter++">update</button> -->
+        <button @click = "counter+=2">update</button>
+        <!-- v-bind & v-model => one way binding & two way binding -->
+        <form>
+            <input type="text" :value="source" placeholder="Using v-bind">
+            <input type="text" v-model="source" placeholder="using v-model">
+            <h4>Your name is {{source}}</h4>
+        </form>
+
+    </div>
+
+
+    <script src='js/vue.js'></script>
+    <script>
+
+
+        //Vue Component global => global register في اي مكان تقدر تستخدمها 
+
+        Vue.component('app-count',{
+            data:function(){
+               return {
+                   name : 'Mohamed',
+                   count : 0
+               } 
+            },
+            props : ['source','url'],
+            template : '<p @click="count++"> Hello {{name}} You clicked on this paragraph {{count}} times and your source is {{sourc}} and URL is {{url}} </p>'
+        })
+
+        // توضيح الفرق  بين ال global و ال local .
+
+
+        //local component 
+
+        var AppArticle = {
+            data : function(){
+                return {
+                    count:0
+                }
+            },
+            template : '<p>Test</p>'
+        }
+
+        var AppArticleItem = {
+            data : function(){
+                return {
+                    count:0
+                }
+            },
+            template : '<p>Item</p>'
+        }
+        
+        Vue.component('AppArticle',{
+            data:function(){
+               return {
+                   count : 0
+               } 
+            },
+            template : '<p>Test</p>'
+        })
+
+        Vue.component('AppArticleItem',{
+            data:function(){
+               return {
+                   count : 0
+               } 
+            },
+            template : '<p>Item</p>'
+        })
+        
+        //Vue instance
+        var vm = new Vue({
+            el: '#alasmar',
+            data: {
+
+                source: 'w3school',
+                url : 'https:\\www.google.com',
+                age: 60,
+                skills: ['HTML', 'CSS', 'PHP', 'vuejs'],
+                imageSource: 'images/01.jpg',
+                imageAltText: 'My Pic',
+                imageUrl: 'https://www.google.ps',
+                counter:0,
+                isSubscribed: false,
+                familyInfo: [
+                    {
+                        firstName: 'Mohamed',
+                        secondName: 'Alasmar',
+                        Age: 26
+
+                    },
+
+                    {
+                        firstName: 'saeed',
+                        secondName: 'zaqout',
+                        Age: 20
+
+                    },
+
+                    {
+                        firstName: 'Mohamed',
+                        secondName: 'Aljasem',
+                        Age: 30
+
+                    },
+                ]
+
+            },
+            components: {
+                'app-article' : AppArticle,
+                'app-article-item' : AppArticleItem
+            }
+      
+            // methods: {
+            //     yourAgeInDAys: function () {
+            //         return 'Your Age In Days Is : ' + this.age * 365;
+            //     }
+            //      }
+
+
+
+            // name: 'mohamed',
+            // title: '<b class="rank"> Noob </b>',
+
+
+        })
+    </script>
+</body>
+
+</html>

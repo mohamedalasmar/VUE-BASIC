@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>watch</title>
+</head>
+<!-- 
+    watch : خاصية بتعتمد على انه كل كا تتغير قيمة المتغير بتنفذ action معين
+
+ -->
+
+<body>
+
+    <div id="alasmar">
+        <h1>welcome Vue.js </h1>
+        <!-- تحويل العملات -->
+        <label>Palestinian Shikel</label>
+        <input type="text" placeholder="Palestinian Shikel" v-model="sh">
+        <label>American Dollar</label>
+        <input type="text" placeholder="American Dollar" v-model="dol">
+
+        <!-- تحويل الوقت  -->
+        <br><br>
+        <label>Hour</label>
+        <input type="text" placeholder="Enter Hour" v-model="Hour">
+        <label>Minute</label>
+        <input type="text" placeholder="Enter Minute" v-model="Minute">
+        <label>Second</label>
+        <input type="text" placeholder="Enter Second" v-model="Second">
+
+    </div>
+
+    <script src='js/vue.js'></script>
+
+    <script>
+        var vm = new Vue({
+            el: '#alasmar',
+            data: {
+                sh: 0,
+                dol: 0,
+                Hour: 0,
+                Minute: 0,
+                Second: 0,
+            },
+
+            watch: {
+                sh: function (v) {
+                    this.dol = v / 4;
+                },
+                dol: function (v) {
+                    this.sh = v * 4;
+                },
+                Hour: function (v) {
+                    this.Minute = v * 60;
+                    console.log('Run Hour');
+                },
+                Minute: function (v) {
+                    this.Hour = v / 60;
+                    this.Second = v * 60;
+                    console.log('Run Minute');
+
+                },
+                Second: function (v) {
+                    this.Minute = v / 60
+                    console.log('Run Second');
+
+                }
+
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>
